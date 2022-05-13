@@ -1,1 +1,34 @@
 // Write your "projects" router here!
+const express = require("express");
+const Project = require("./projects-model");
+
+const router = express.Router();
+
+router.get("/", (req, res) => {
+    Project.get()
+        .then( result => {
+            res.json(result)
+        })
+})
+
+router.get("/:id", (req, res) => {
+    Project.get(req.params.id)
+        .then( result => {
+            result ? res.json(result) : res.status(404).json({ message: "No Id" }) 
+        })
+        .catch( () => {
+            res.status(500).json({ message: "Server Error" })
+        })
+})
+
+router.post("/", (req, res) => {
+    Project.insert(req.body)
+        .then( result => {
+            result.name.trim() && result.description.trim() && res.status(201).json(result);
+        })
+        .catch( () => {
+            res.status(400).json({ message: "Please include name and description" })
+        })
+})
+
+module.exports = router;
