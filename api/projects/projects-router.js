@@ -31,4 +31,19 @@ router.post("/", (req, res) => {
         })
 })
 
+router.put("/:id", (req, res) => {
+    Project.update(req.params.id, req.body)
+        .then( result => {
+            const { name, description, completed } = req.body
+            
+            name && description && completed != undefined
+            ? res.status(201).json(result)
+            : res.status(400).json()
+        })
+        .catch( () => {
+            res.status(400).json()
+        })
+})
+
+
 module.exports = router;
