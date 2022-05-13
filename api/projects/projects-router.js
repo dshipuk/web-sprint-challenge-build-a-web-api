@@ -1,7 +1,7 @@
 // Write your "projects" router here!
 const express = require("express");
 const Project = require("./projects-model");
-const { validatePostBody } = require("./projects-middleware");
+const { validatePostBody, validateGetId } = require("./projects-middleware");
 
 const router = express.Router();
 
@@ -12,14 +12,8 @@ router.get("/", (req, res) => {
         })
 })
 
-router.get("/:id", (req, res) => {
-    Project.get(req.params.id)
-        .then( result => {
-            result ? res.json(result) : res.status(404).json({ message: "No Id" }) 
-        })
-        .catch( () => {
-            res.status(500).json({ message: "Server Error" })
-        })
+router.get("/:id", validateGetId, (req, res) => {
+    res.json(req.data)
 })
 
 router.post("/", validatePostBody, (req, res, next) => {
