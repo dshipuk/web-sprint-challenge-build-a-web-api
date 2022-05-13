@@ -8,7 +8,8 @@ const actionsRouter = require("./actions/actions-router");
 server.use(express.json());
 
 // Build your actions router in /api/actions/actions-router.js
-// server.use("/api/actions", actionsRouter);
+server.use("/api/actions", actionsRouter);
+
 
 // Build your projects router in /api/projects/projects-router.js
 server.use("/api/projects", projectsRouter);
