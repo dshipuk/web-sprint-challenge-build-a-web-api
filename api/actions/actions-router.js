@@ -1,6 +1,7 @@
 // Write your "actions" router here!
 const express = require("express");
 const Action = require("./actions-model");
+const Project = require("../projects/projects-model")
 
 const router = express.Router();
 
@@ -24,7 +25,12 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
     Action.insert(req.body)
         .then( result => {
-            res.json(result)
+            Project.get(result.project_id)
+                .then( project => {
+                    project 
+                    ? res.json(result)
+                    : res.status(404).json()
+                })
         })
         .catch( () => res.status(400).json())
 })
