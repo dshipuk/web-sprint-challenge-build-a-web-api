@@ -45,5 +45,15 @@ router.put("/:id", (req, res) => {
         })
 })
 
+router.delete("/:id", (req, res) => {
+    Project.remove(req.params.id)
+        .then( result => {
+            result
+            ? res.json()
+            : res.status(404).json()
+        })
+        .catch( () => res.status(404).json())
+})
+
 
 module.exports = router;
