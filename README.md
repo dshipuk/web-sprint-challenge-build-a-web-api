@@ -84,7 +84,7 @@ Inside `api/actions/actions-router.js` build endpoints for performing CRUD opera
 
 #### Middleware functions
 
-- [ ] Write at least two middleware functions for this API, and consume them in the proper places of your code.
+- [ x ] Write at least two middleware functions for this API, and consume them in the proper places of your code.
 
 ### Database Schemas
 
@@ -147,7 +147,14 @@ We have provided test data for all the resources.
 Be prepared to demonstrate your understanding of this week's concepts by answering questions on the following topics. You might prepare by writing down your own answers before hand.
 
 1. The core features of Node.js and Express and why they are useful.
+  Node.js is essential for both frontend and backend development. Without this, you wouldn't have express.js either. Express.js provides features such as middleware, routing, and debugging, which all work together to build a stable working webpage
+
 1. Understand and explain the use of Middleware.
+  Middlewares help us do things in between requests and before requests finish and are sent, which is helpful to add things such as auth, logging, and error checking
+
 1. The basic principles of the REST architectural style.
+  Everything is a resource. Each resource is identifiable by a unique URL, Uses the standard HTTP methods, and Allows multiple representations for the same resource. Communication should always be stateless
 1. Understand and explain the use of Express Routers.
+  Routing defines the way client requests are handled
 1. Describe tooling used to manually test the correctness of an API.
+I believe tooling could be something such as jest testing framework where you write specific tests to do particular actions a user would do and receive an expected outcome
