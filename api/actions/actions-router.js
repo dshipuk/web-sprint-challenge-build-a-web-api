@@ -1,7 +1,8 @@
 // Write your "actions" router here!
 const express = require("express");
 const Action = require("./actions-model");
-const Project = require("../projects/projects-model")
+///const Project = require("../projects/projects-model")
+const { validatePostBody } = require("./actions-middlware");
 
 const router = express.Router();
 
@@ -22,17 +23,12 @@ router.get("/:id", (req, res) => {
         .catch( () => res.status(404).json())
 })
 
-router.post("/", (req, res) => {
+router.post("/", validatePostBody, (req, res, next) => {
     Action.insert(req.body)
         .then( result => {
-            Project.get(result.project_id)
-                .then( project => {
-                    project 
-                    ? res.json(result)
-                    : res.status(404).json()
-                })
+            res.status(201).json(result)
         })
-        .catch( () => res.status(400).json())
+        .catch(next)
 })
 
 router.put("/:id", (req, res) => {
@@ -60,3 +56,11 @@ router.delete("/:id", (req,res) => {
 })
 
 module.exports = router;
+
+
+            // Project.get(result.project_id)
+            //     .then( project => {
+            //         project 
+            //         ? res.json(result)
+            //         : res.status(404).json()
+            //     })
