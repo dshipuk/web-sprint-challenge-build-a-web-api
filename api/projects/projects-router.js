@@ -1,6 +1,7 @@
 // Write your "projects" router here!
 const express = require("express");
 const Project = require("./projects-model");
+const { validatePostBody } = require("./projects-middleware");
 
 const router = express.Router();
 
@@ -21,14 +22,13 @@ router.get("/:id", (req, res) => {
         })
 })
 
-router.post("/", (req, res) => {
+router.post("/", validatePostBody, (req, res, next) => {
+    console.log("POSTTTTTT")
     Project.insert(req.body)
         .then( result => {
-            result.name.trim() && result.description.trim() && res.status(201).json(result);
+            res.status(201).json(result)
         })
-        .catch( () => {
-            res.status(400).json({ message: "Please include name and description" })
-        })
+        .catch(next)
 })
 
 router.put("/:id", (req, res) => {
